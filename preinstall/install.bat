@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -File "C:\OEM\tailscale.ps1"
