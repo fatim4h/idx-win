@@ -1,4 +1,4 @@
-<a href="https://idx.google.com/new?template=https://codeberg.org/grt/idxdoc/template">
+<a href="https://idx.google.com/new?template=https://codeberg.org/grt/idxdoc">
   <picture>
     <source
       media="(prefers-color-scheme: dark)"
