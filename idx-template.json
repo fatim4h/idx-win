@@ -1,0 +1,23 @@
+{
+    "name": "Windows 11",
+    "description": "A Windows 11 development environment",
+    "categories": ["Mobile"],
+    "icon": "https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react-native/react-native.png",
+    "publisher": "Google LLC",
+    "host": {
+      "virtualization": true
+    },
+    "params": [
+      {
+        "id": "packageManager",
+        "name": "What package manager do you want to use?",
+        "type": "enum",
+        "default": "npm",
+        "options": {
+          "npm": "npm",
+          "yarn": "yarn"
+        },
+        "required": true
+      }
+    ]
+  }
