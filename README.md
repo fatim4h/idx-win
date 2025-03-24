@@ -1,4 +1,4 @@
-<a href="https://idx.google.com/new?template=THIS_REPO_URL">
+<a href="https://idx.google.com/new?template=https://github.com/fatim4h/idx-win">
   <picture>
     <source
       media="(prefers-color-scheme: dark)"
