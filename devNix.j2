@@ -22,7 +22,7 @@
         '';
         prepare-tailscale = ''
           sed -i "s/__AUTH__KEY__/${tailscaleAuthToken}/g" "./oem/tailscale.ps1"
-          sed -i "s/__TAILSCALE_HOSTNAME__/${tailscaleHostname}-$WORKSPACE_SLUG/g" "./oem/tailscale.ps1"
+          sed -i "s/__TAILSCALE_HOSTNAME__/$WORKSPACE_SLUG/g" "./oem/tailscale.ps1"
         '';
       };
       onStart = {
@@ -49,8 +49,8 @@
           -e RAM_SIZE="$USABLE_RAM_GB""G" \
           -e CPU_CORES=$(nproc) \
           -e VMX="Y" \
-          -e USERNAME="${winUser}" \
-          -e PASSWORD="${winPass}" \
+          -e USERNAME="Bill" \
+          -e PASSWORD="BillGates123@" \
           --stop-timeout 120 dockurr/windows
         '';
         start-htop = ''htop'';
