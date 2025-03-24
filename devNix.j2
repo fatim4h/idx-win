@@ -52,6 +52,7 @@
           --device=/dev/net/tun \
           --cap-add NET_ADMIN \
           -v ./windows:/storage \
+          -v ./oem:/oem \
           -e RAM_SIZE="$USABLE_RAM_GB""G" \
           -e CPU_CORES=$(nproc) \
           -e USERNAME="{{winUser}}" \
