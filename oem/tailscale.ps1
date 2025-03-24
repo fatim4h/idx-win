@@ -22,7 +22,7 @@ Write-Host "[INFO] Installation complete."
 
 Write-Host "[INFO] Connecting to Tailnet..."
 # Start-Process -FilePath "C:\Program Files\Tailscale\tailscale.exe" -ArgumentList "up", "--authkey=tskey-auth-kD2wv8ATzY11CNTRL-HBpKxRDZC5Ky6gdGRGae5K6jCw35GfUJ", "--accept-dns=false", "--reset", "--unattended", "--advertise-tags=tag:temp" -Wait
-&"C:\Program Files\Tailscale\tailscale.exe" up --authkey="__AUTH__KEY__" --accept-dns=false --reset --unattended --advertise-tags=tag:temp
+&"C:\Program Files\Tailscale\tailscale.exe" up --authkey="__AUTH__KEY__" --hostname "__TAILSCALE_HOSTNAME__" --accept-dns=false --reset --unattended --advertise-tags=tag:temp
 Write-Host "[INFO] Connection to Tailnet complete."
 # Check if the Tailscale service is installed
 # $serviceName = "tailscale"

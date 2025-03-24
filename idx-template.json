@@ -9,7 +9,28 @@
     },
     "params": [
       {
-        "id": "authToken",
+        "id": "winUser",
+        "name": "Windows User",
+        "type": "text",
+        "default": "Bill",
+        "required": true
+      },
+      {
+        "id": "winPass",
+        "name": "Windows Password",
+        "type": "text",
+        "default": "BillGates123@",
+        "required": true
+      },
+      {
+        "id": "tailscaleHostname",
+        "name": "Tailscale Hostname",
+        "type": "text",
+        "default": "MyWindows",
+        "required": true
+      },
+      {
+        "id": "tailscaleAuthToken",
         "name": "Auth keys Tailscale",
         "type": "text",
         "default": "",

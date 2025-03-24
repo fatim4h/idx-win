@@ -19,7 +19,10 @@
         ];
         orph = ''
             sed -i "s/__WEB__HOST__/8006-$WEB_HOST/g" "./README.md"
-            sed -i "s/__ENV__/$ENV/g" "./README.md"
+        '';
+        prepare-tailscale = ''
+          sed -i "s/__AUTH__KEY__/${tailscaleAuthToken}/g" "./oem/tailscale.ps1"
+          sed -i "s/__TAILSCALE_HOSTNAME__/${tailscaleHostname}-$WORKSPACE_SLUG/g" "./oem/tailscale.ps1"
         '';
       };
       onStart = {
@@ -46,8 +49,8 @@
           -e RAM_SIZE="$USABLE_RAM_GB""G" \
           -e CPU_CORES=$(nproc) \
           -e VMX="Y" \
-          -e USERNAME="Bill" \
-          -e PASSWORD="BillGates123@" \
+          -e USERNAME="${winUser}" \
+          -e PASSWORD="${winPass}" \
           --stop-timeout 120 dockurr/windows
         '';
         start-htop = ''htop'';
