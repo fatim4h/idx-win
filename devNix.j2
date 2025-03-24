@@ -17,15 +17,16 @@
         default.openFiles = [
           "README.md"
         ];
-        orph = ''
-            sed -i "s/__WEB__HOST__/8006-$WEB_HOST/g" "./README.md"
-        '';
         prepare-tailscale = ''
-          sed -i "s/__AUTH__KEY__/${tailscaleAuthToken}/g" "./oem/tailscale.ps1"
+          sed -i "s/__WEB__HOST__/8006-$WEB_HOST/g" "./README.md"
+          sed -i "s/__AUTH__KEY__/{{tailscaleAuthKey}}/g" "./oem/tailscale.ps1"
           sed -i "s/__TAILSCALE_HOSTNAME__/$WORKSPACE_SLUG/g" "./oem/tailscale.ps1"
+          echo "Open the download iso progress in the other terminal session.";
+          echo "Or you can go to https://8006-$WEB_HOST to see the installation progress.";
         '';
       };
       onStart = {
+        start-htop = ''htop'';
         start-windows = ''
           echo -e "\033[1;33mStarting Docker...\033[0m"
           RAM=$(free -b | grep Mem | awk '{print $2}')  # Get total RAM in bytes
@@ -49,11 +50,10 @@
           -e RAM_SIZE="$USABLE_RAM_GB""G" \
           -e CPU_CORES=$(nproc) \
           -e VMX="Y" \
-          -e USERNAME="Bill" \
-          -e PASSWORD="BillGates123@" \
+          -e USERNAME="{{winUser}}" \
+          -e PASSWORD="{{winPass}}" \
           --stop-timeout 120 dockurr/windows
         '';
-        start-htop = ''htop'';
       };
     };
   };

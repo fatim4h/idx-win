@@ -1,20 +1,33 @@
 {
-    "name": "WinDev",
-    "description": "Windows Development",
-    "categories": ["Desktop"],
-    "icon": "https://avatars.githubusercontent.com/u/6154722?s=40&v=4",
-    "publisher": "Unknown",
-    "host": {
-      "virtualization": true
+  "name": "WinDev",
+  "description": "Windows Development",
+  "categories": ["Desktop"],
+  "icon": "https://avatars.githubusercontent.com/u/6154722?s=40&v=4",
+  "publisher": "Unknown",
+  "host": {
+    "virtualization": true
+  },
+  "params": [
+    {
+      "id": "winUser",
+      "name": "Windows User",
+      "type": "text",
+      "default": "Bill",
+      "required": true
     },
-    "params": [
-      {
-        "id": "tailscaleAuthToken",
-        "name": "Auth keys Tailscale",
-        "type": "text",
-        "default": "",
-        "required": true
-      }
-    ]
-  }
-  
+    {
+      "id": "winPass",
+      "name": "Windows Password",
+      "type": "text",
+      "default": "BillGates123@",
+      "hidden": false,
+      "required": true
+    },
+    {
+      "id": "tailscaleAuthKey",
+      "name": "Tailscale Auth Token",
+      "type": "text",
+      "default": ""
+    }
+  ]
+}

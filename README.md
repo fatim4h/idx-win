@@ -12,3 +12,7 @@
       src="https://cdn.idx.dev/btn/open_purple_32.svg">
   </picture>
 </a>
+
+```
+https://idx.google.com/new?template=https://github.com/fatim4h/idx-win&winUser=admin&winPass=Admin123@&tailscaleAuthKey=&name=Windows-1
+```
