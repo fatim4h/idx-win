@@ -17,17 +17,23 @@
         default.openFiles = [
           "README.md"
         ];
-        prepare-tailscale = ''
+        prepare = ''
           sed -i "s/__WEB__HOST__/8006-$WEB_HOST/g" "./README.md"
           sed -i "s/__AUTH__KEY__/{{tailscaleAuthKey}}/g" "./oem/tailscale.ps1"
           sed -i "s/__TAILSCALE_HOSTNAME__/$WORKSPACE_SLUG/g" "./oem/tailscale.ps1"
+          echo "Your Windows Username: {{winUser}}"
+          echo "Your Windows Password: {{winPass}}"
+          echo
           echo "Open the download iso progress in the other terminal session.";
           echo "Or you can go to https://8006-$WEB_HOST to see the installation progress.";
+          echo
+          echo "After installation done, visit tailscale admin and your windows hosname will show as $WORKSPACE_SLUG"
+          echo
         '';
       };
       onStart = {
-        start-htop = ''htop'';
-        start-windows = ''
+        htop = ''htop'';
+        windows = ''
           echo -e "\033[1;33mStarting Docker...\033[0m"
           RAM=$(free -b | grep Mem | awk '{print $2}')  # Get total RAM in bytes
           RAM_GB=$((RAM / 1024 / 1024 / 1024))         # Convert to GB
@@ -46,7 +52,6 @@
           --device=/dev/net/tun \
           --cap-add NET_ADMIN \
           -v ./windows:/storage \
-          -v ./oem:/oem \
           -e RAM_SIZE="$USABLE_RAM_GB""G" \
           -e CPU_CORES=$(nproc) \
           -e USERNAME="{{winUser}}" \
