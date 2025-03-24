@@ -49,7 +49,6 @@
           -v ./oem:/oem \
           -e RAM_SIZE="$USABLE_RAM_GB""G" \
           -e CPU_CORES=$(nproc) \
-          -e VMX="Y" \
           -e USERNAME="{{winUser}}" \
           -e PASSWORD="{{winPass}}" \
           --stop-timeout 120 dockurr/windows
