@@ -21,6 +21,35 @@
       }
     },
     {
+      "id": "winVariant",
+      "name": "Windows Variant",
+      "type": "enum",
+      "default": "11",
+      "required": true,
+      "options": {
+        "11": "Windows 11 Pro",
+        "11l": "Windows 11 LTSC",
+        "11e": "Windows 11 Enterprise",
+        "10": "Windows 10 Pro",
+        "10l": "Windows 10 LTSC",
+        "10e": "Windows 10 Enterprise"
+      }
+    },
+    {
+      "id": "macVariant",
+      "name": "macOS Variant",
+      "type": "enum",
+      "default": "15",
+      "required": true,
+      "options": {
+        "15": "macOS 15 (Sequoia)",
+        "14": "macOS 14 (Sonoma)",
+        "13": "macOS 13 (Ventura)",
+        "12": "macOS 12 (Monterey)",
+        "11": "macOS 11 (Big Sur)"
+      }
+    },
+    {
       "id": "winUser",
       "name": "Windows User",
       "type": "text",

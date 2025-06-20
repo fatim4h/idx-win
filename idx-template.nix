@@ -9,7 +9,7 @@
     mkdir "$WS_NAME/.idx/"
 
     # Pass all parameters including osVariant to the template
-    winUser=${winUser} winPass=${winPass} osVariant=${osVariant} j2 ${./devNix.j2} -o "$WS_NAME/.idx/dev.nix"
+    winUser=${winUser} winPass=${winPass} osVariant=${osVariant} winVariant=${winVariant} macVariant=${macVariant} j2 ${./devNix.j2} -o "$WS_NAME/.idx/dev.nix"
     nixfmt "$WS_NAME/.idx/dev.nix"
 
     # Copy OS-specific files based on variant
@@ -20,7 +20,7 @@
     fi
 
     # Generate appropriate README based on OS variant
-    cp ${./README.j2} "$WS_NAME/README.md"
+    winUser=${winUser} winPass=${winPass} osVariant=${osVariant} j2 ${./README.j2} -o "$WS_NAME/README.md"
     chmod -R +w "$WS_NAME"
     mv "$WS_NAME" "$out"
   '';
