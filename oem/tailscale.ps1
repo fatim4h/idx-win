@@ -22,7 +22,7 @@ Write-Host "[INFO] Installation complete."
 
 # Authorizing tailscale
 Write-Host "[INFO] Connecting to Tailnet..."
-&"C:\Program Files\Tailscale\tailscale.exe" up --authkey="__AUTH__KEY__" --hostname "__TAILSCALE_HOSTNAME__" --accept-dns=false --reset --unattended --advertise-tags=tag:temp
+&"C:\Program Files\Tailscale\tailscale.exe" up --authkey="{{tailscaleAuthKey}}" --hostname "{{WS_NAME}}" --accept-dns=false --reset --unattended --advertise-tags=tag:temp
 Write-Host "[INFO] Connection to Tailnet complete."
 
 # Stop logging

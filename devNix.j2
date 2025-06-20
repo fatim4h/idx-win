@@ -1,4 +1,3 @@
-
 { pkgs, ... }: {
   channel = "stable-23.11";
   packages = [
@@ -11,6 +10,7 @@
     };
   };
   idx = {
+    previews.enable = false;
     extensions = [];
     workspace = {
       onCreate = {
@@ -19,22 +19,25 @@
         ];
         prepare = ''
           sed -i "s/__WEB__HOST__/8006-$WEB_HOST/g" "./README.md"
-          sed -i "s/__AUTH__KEY__/{{tailscaleAuthKey}}/g" "./oem/tailscale.ps1"
-          sed -i "s/__TAILSCALE_HOSTNAME__/$WORKSPACE_SLUG/g" "./oem/tailscale.ps1"
+          {% if osVariant in ['windows', 'windows-arm'] %}
           echo "Your Windows Username: {{winUser}}"
           echo "Your Windows Password: {{winPass}}"
+          {% endif %}
           echo
           echo "Open the download iso progress in the other terminal session.";
           echo "Or you can go to https://8006-$WEB_HOST to see the installation progress.";
           echo
+          {% if osVariant in ['windows', 'windows-arm'] %}
           echo "After installation done, visit tailscale admin and your windows hosname will show as $WORKSPACE_SLUG"
+          {% endif %}
           echo
         '';
       };
       onStart = {
         htop = ''htop'';
+        {% if osVariant == 'windows' %}
         windows = ''
-          echo -e "\033[1;33mStarting Docker...\033[0m"
+          echo -e "\033[1;33mStarting Docker for Windows...\033[0m"
           RAM=$(free -b | grep Mem | awk '{print $2}')  # Get total RAM in bytes
           RAM_GB=$((RAM / 1024 / 1024 / 1024))         # Convert to GB
           BUFFER_GB=4
@@ -59,6 +62,58 @@
           -e PASSWORD="{{winPass}}" \
           --stop-timeout 120 dockurr/windows
         '';
+        {% elif osVariant == 'windows-arm' %}
+        windows = ''
+          echo -e "\033[1;33mStarting Docker for Windows ARM...\033[0m"
+          RAM=$(free -b | grep Mem | awk '{print $2}')
+          RAM_GB=$((RAM / 1024 / 1024 / 1024))
+          BUFFER_GB=4
+          USABLE_RAM_GB=$((RAM_GB - BUFFER_GB))
+          if [ $USABLE_RAM_GB -lt 1 ]; then
+              echo "Not enough RAM available for Docker. Exiting."
+              exit 1
+          fi
+          docker run \
+          -it \
+          --rm \
+          --name windows-arm \
+          -p 8006:8006 \
+          --device=/dev/kvm \
+          --device=/dev/net/tun \
+          --cap-add NET_ADMIN \
+          -v ./windows:/storage \
+          -v ./oem:/oem \
+          -e RAM_SIZE="$USABLE_RAM_GB""G" \
+          -e CPU_CORES=$(nproc) \
+          -e USERNAME="{{winUser}}" \
+          -e PASSWORD="{{winPass}}" \
+          --stop-timeout 120 dockur/windows-arm
+        '';
+        {% elif osVariant == 'macos' %}
+        macos = ''
+          echo -e "\033[1;33mStarting Docker for macOS...\033[0m"
+          RAM=$(free -b | grep Mem | awk '{print $2}')
+          RAM_GB=$((RAM / 1024 / 1024 / 1024))
+          BUFFER_GB=4
+          USABLE_RAM_GB=$((RAM_GB - BUFFER_GB))
+          if [ $USABLE_RAM_GB -lt 1 ]; then
+              echo "Not enough RAM available for Docker. Exiting."
+              exit 1
+          fi
+          docker run \
+          -it \
+          --rm \
+          --name macos \
+          -p 8006:8006 \
+          --device=/dev/kvm \
+          --device=/dev/net/tun \
+          --cap-add NET_ADMIN \
+          -v ./macos:/storage \
+          -e RAM_SIZE="$USABLE_RAM_GB""G" \
+          -e CPU_CORES=$(nproc) \
+          --stop-timeout 120 dockur/macos
+        '';
+        {% endif %}
       };
     };
   };

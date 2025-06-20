@@ -9,11 +9,24 @@
   },
   "params": [
     {
+      "id": "osVariant",
+      "name": "Operating System Variant",
+      "type": "select",
+      "default": "windows",
+      "required": true,
+      "options": [
+        { "value": "windows", "label": "Windows" },
+        { "value": "macos", "label": "macOS (Docker container)" },
+        { "value": "windows-arm", "label": "Windows ARM (Docker container)" }
+      ]
+    },
+    {
       "id": "winUser",
       "name": "Windows User",
       "type": "text",
       "default": "Bill",
-      "required": true
+      "required": true,
+      "condition": "osVariant === 'windows' || osVariant === 'windows-arm'"
     },
     {
       "id": "winPass",
@@ -21,7 +34,8 @@
       "type": "text",
       "default": "BillGates123@",
       "hidden": false,
-      "required": true
+      "required": true,
+      "condition": "osVariant === 'windows' || osVariant === 'windows-arm'"
     },
     {
       "id": "tailscaleAuthKey",
