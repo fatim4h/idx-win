@@ -11,37 +11,35 @@
     {
       "id": "osVariant",
       "name": "Operating System Variant",
-      "type": "select",
+      "type": "enum",
       "default": "windows",
       "required": true,
-      "options": [
-        { "value": "windows", "label": "Windows" },
-        { "value": "macos", "label": "macOS (Docker container)" },
-        { "value": "windows-arm", "label": "Windows ARM (Docker container)" }
-      ]
+      "options": {
+        "windows": "Windows",
+        "macos": "macOS",
+        "windows-arm": "Windows ARM"
+      }
     },
     {
       "id": "winUser",
       "name": "Windows User",
       "type": "text",
       "default": "Bill",
-      "required": true,
-      "condition": "osVariant === 'windows' || osVariant === 'windows-arm'"
+      "required": true
     },
     {
       "id": "winPass",
       "name": "Windows Password",
       "type": "text",
       "default": "BillGates123@",
-      "hidden": false,
-      "required": true,
-      "condition": "osVariant === 'windows' || osVariant === 'windows-arm'"
+      "required": true
     },
     {
       "id": "tailscaleAuthKey",
       "name": "Tailscale Auth Token",
       "type": "text",
-      "default": ""
+      "default": "",
+      "required": false
     }
   ]
 }
