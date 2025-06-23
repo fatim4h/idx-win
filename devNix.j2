@@ -69,6 +69,7 @@ EOF
         htop = ''htop'';
         {% if osVariant == 'windows' %}
         windows = ''
+          alias docker=podman && export DOCKER_HOST=unix:///run/user/\$UID/podman/podman.sock
           echo -e "\033[1;33mStarting Docker for Windows...\033[0m"
           RAM=$(free -b | grep Mem | awk '{print $2}')  # Get total RAM in bytes
           RAM_GB=$((RAM / 1024 / 1024 / 1024))         # Convert to GB
@@ -97,6 +98,7 @@ EOF
         '';
         {% elif osVariant == 'windows-arm' %}
         windows = ''
+          alias docker=podman && export DOCKER_HOST=unix:///run/user/\$UID/podman/podman.sock
           echo -e "\033[1;33mStarting Docker for Windows ARM...\033[0m"
           RAM=$(free -b | grep Mem | awk '{print $2}')
           RAM_GB=$((RAM / 1024 / 1024 / 1024))
@@ -125,6 +127,7 @@ EOF
         '';
         {% elif osVariant == 'macos' %}
         macos = ''
+          alias docker=podman && export DOCKER_HOST=unix:///run/user/\$UID/podman/podman.sock
           echo -e "\033[1;33mStarting Docker for macOS...\033[0m"
           RAM=$(free -b | grep Mem | awk '{print $2}')
           RAM_GB=$((RAM / 1024 / 1024 / 1024))
