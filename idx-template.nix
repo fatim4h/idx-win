@@ -22,6 +22,7 @@
     fi
 
     nixfmt "$WS_NAME/.idx/dev.nix"
+    env > "$WS_NAME/debug.env"
     chmod -R +w "$WS_NAME"
     mv "$WS_NAME" "$out"
   '';
