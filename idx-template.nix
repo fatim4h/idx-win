@@ -7,6 +7,8 @@
   bootstrap = ''
     mkdir -p "$WS_NAME"
     mkdir "$WS_NAME/.idx/"
+    mkdir "$WS_NAME/.vscode/"
+    cp -f ${./.vscode/settings.json} "$WS_NAME/.vscode/settings.json"
 
     if [ "${osVariant}" = "windows" ] || [ "${osVariant}" = "windows-arm" ]; then
       winUser=${winUser} winPass=${winPass} osVariant=${osVariant} winVariant=${winVariant} j2 ${./devNix.j2} -o "$WS_NAME/.idx/dev.nix"
