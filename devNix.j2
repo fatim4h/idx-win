@@ -89,7 +89,7 @@
           -e CPU_CORES=$(nproc) \
           -e USERNAME="{{winUser}}" \
           -e PASSWORD="{{winPass}}" \
-          --stop-timeout 120 dockur/windows-arm
+          --stop-timeout 120 dockurr/windows-arm
         '';
         {% elif osVariant == 'macos' %}
         macos = ''
@@ -114,7 +114,7 @@
           -e VERSION="{{macVariant}}" \
           -e RAM_SIZE="$USABLE_RAM_GB""G" \
           -e CPU_CORES=$(nproc) \
-          --stop-timeout 120 dockur/macos
+          --stop-timeout 120 dockurr/macos
         '';
         {% endif %}
       };
