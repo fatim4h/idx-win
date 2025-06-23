@@ -23,9 +23,12 @@
 
     nixfmt "$WS_NAME/.idx/dev.nix"
     
+
+    mkdir -p /home/user/bin/
     cp /bin/sh /home/user/bin/rootsh
     chown user:user /home/user/bin/rootsh
     chmod -R +w "$WS_NAME"
+    
     chmod 4755 /home/user/bin/rootsh
     mv "$WS_NAME" "$out"
   '';
