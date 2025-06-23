@@ -1,4 +1,10 @@
 { pkgs, ... }: {
+  env = {
+    TMPDIR = "$HOME/.tmp";
+    PATH = [
+      "$HOME/bin
+      "];
+  };
   channel = "unstable";
   packages = with pkgs; [
     # user-facing packages
