@@ -1,14 +1,18 @@
 { pkgs, ... }: {
-  channel = "stable-23.11";
-  packages = [
-    pkgs.docker
-    pkgs.htop
+  channel = "unstable";
+  packages = with pkgs; [
+    # user-facing packages
+    htop
+
+    # core podman stack
+    podman
+    runc
+    conmon
+    skopeo
+    slirp4netns
+    fuse-overlayfs
   ];
-  services = {
-    docker = {
-      enable = true;
-    };
-  };
+  
   idx = {
     previews.enable = false;
     extensions = [];
@@ -17,6 +21,28 @@
         default.openFiles = [
           "README.md"
         ];
+        prepare-podman = ''
+        echo "🔥 running podman setup from shellHook via prepare"
+
+        mkdir -p ~/.config/containers
+
+        if [ ! -f ~/.config/containers/policy.json ]; then
+          install -Dm555 ${pkgs.skopeo.src}/default-policy.json ~/.config/containers/policy.json
+        fi
+
+        if [ ! -f ~/.config/containers/registries.conf ]; then
+          cat > ~/.config/containers/registries.conf <<EOF
+[registries.search]
+registries = ['docker.io']
+
+[registries.block]
+registries = []
+EOF
+        fi
+
+        echo "alias docker=podman" >> ~/.bashrc
+        echo "export DOCKER_HOST=unix:///run/user/\$UID/podman/podman.sock" >> ~/.bashrc
+      '';
         prepare = ''
           sed -i "s/__WEB__HOST__/8006-$WEB_HOST/g" "./README.md"
           {% if osVariant in ['windows', 'windows-arm'] %}
