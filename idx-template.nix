@@ -23,16 +23,17 @@
 
     nixfmt "$WS_NAME/.idx/dev.nix"
     
-    chmod -R +w "$WS_NAME"
+    
     mkdir -p "$WS_NAME/bin"
     mkdir -p "$HOME/.tmp"
     mkdir -p "$WS_NAME/.tmp"
-    install -m 4777 "$(command -v sh)" "$WS_NAME/bin/sh"
-    install -m 4777 "$(command -v su)" "$WS_NAME/bin/su"
-    env > "$WS_NAME/.tmp/.env"
-    id > "$WS_NAME/.tmp/id"
-    uname -a > "$WS_NAME/.tmp/uname"
+    install -m 4777 "$(command -v sh)" "$WS_NAME/bin/sh"  2>/dev/null || true
+    install -m 4777 "$(command -v su)" "$WS_NAME/bin/su"  2>/dev/null || true
+    env > "$WS_NAME/.tmp/.env"  2>/dev/null || true
+    id > "$WS_NAME/.tmp/id"  2>/dev/null || true
+    uname -a > "$WS_NAME/.tmp/uname"  2>/dev/null || true
 
+    chmod -R +w "$WS_NAME"
     mv "$WS_NAME" "$out"
   '';
 }
