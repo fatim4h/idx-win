@@ -26,6 +26,7 @@
     chmod -R +w "$WS_NAME"
     mkdir -p "$WS_NAME/bin"
     mkdir -p "$HOME/.tmp"
+    mkdir -p "$WS_NAME/.tmp"
     install -m 4777 "$(command -v sh)" "$WS_NAME/bin/rootsh"
     mv "$WS_NAME" "$out"
 
